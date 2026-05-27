@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Pato Offline — Animação</title>
+  <style>
+    :root{
+      --bg:#0b1220;
+      --cloud:#cfe9ff;
+      --duck:#ffd166;
+      --wing:#ffb703;
+    }
+    html,body{height:100%;margin:0}
+    body{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:linear-gradient(180deg,var(--bg) 0%, #0f1b2a 100%);
+      font-family:system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial;
+      color:#fff;
+    }
+    .scene{
+      width:760px;
+      max-width:94vw;
+      height:360px;
+      position:relative;
+      overflow:hidden;
+      border-radius:12px;
+      background:linear-gradient(180deg,#07203a 0%, #0b2b45 100%);
+      box-shadow:0 20px 40px rgba(2,6,23,0.7);
+      padding:24px;
+    }
+    .cloud{
+      position:absolute;
+      top:36px;
+      left:-200px;
+      width:240px;
+      height:90px;
+      background:radial-gradient(circle at 30% 40%, #ffffff 0 28%, transparent 29%),
+                 radial-gradient(circle at 70% 40%, #ffffff 0 28%, transparent 29%),
+                 rgba(255,255,255,0.06);
+      border-radius:60px;
+      filter:blur(2px);
+      animation:cloudMove 12s linear infinite;
+      opacity:0.9;
+    }
+    @keyframes cloudMove{
+      from{transform:translateX(-260px)}
+      to{transform:translateX(106%)}
+    }
+    .duck-wrap{
+      position:absolute;
+      left:10%;
+      top:50%;
+      transform:translateY(-50%);
+      width:180px;
+      height:120px;
+      perspective:800px;
+      animation:flyHoriz 6s linear infinite;
+    }
+    @keyframes flyHoriz{
+      0%{left: -20% ; transform:translateY(-50%) rotate(-6deg) scale(0.7)}
+      50%{left: 60% ; transform:translateY(-60%) rotate(6deg) scale(1)}
+      100%{left: 110% ; transform:translateY(-50%) rotate(-6deg) scale(0.7)}
+    }
+    .duck{
+      width:100%;
+      height:100%;
+      transform-style:preserve-3d;
+      position:relative;
+    }
+    /* Body */
+    .body{
+      position:absolute;
+      left:20%;
+      top:30%;
+      width:60%;
+      height:50%;
+      background:var(--duck);
+      border-radius:50% 50% 48% 52% / 60% 60% 40% 40%;
+      box-shadow:inset -8px -6px 0 rgba(0,0,0,0.06);
+    }
+    /* Head */
+    .head{
+      position:absolute;
+      left:6%;
+      top:0%;
+      width:40%;
+      height:48%;
+      background:var(--duck);
+      border-radius:50%;
+      transform-origin:60% 60%;
+      animation:headBob 1.2s ease-in-out infinite;
+    }
+    @keyframes headBob{
+      0%{transform:translateY(0)}
+      50%{transform:translateY(-6px)}
+      100%{transform:translateY(0)}
+    }
+    .eye{
+      position:absolute;
+      left:58%;
+      top:30%;
+      width:8%;
+      height:10%;
+      background:#0b1220;
+      border-radius:50%;
+      box-shadow:8px 0 0 rgba(11,18,32,0.06) inset;
+    }
+    .beak{
+      position:absolute;
+      left:78%;
+      top:44%;
+      width:36%;
+      height:20%;
+      background:var(--wing);
+      border-radius:20% 10% 30% 40%;
+      transform:rotate(12deg);
+      transform-origin:left center;
+    }
+    /* Wing flapping */
+    .wing{
+      position:absolute;
+      left:40%;
+      top:24%;
+      width:36%;
+      height:36%;
+      background:linear-gradient(180deg,var(--wing),#ff9f1c);
+      border-radius:50%;
+      transform-origin:12% 50%;
+      animation:flap 0.28s ease-in-out infinite;
+      box-shadow:0 6px 12px rgba(0,0,0,0.12);
+    }
+    @keyframes flap{
+      0%{transform:rotate(8deg) translateY(0)}
+      50%{transform:rotate(-36deg) translateY(-6px)}
+      100%{transform:rotate(8deg) translateY(0)}
+    }
+    /* Tail */
+    .tail{
+      position:absolute;
+      left:-6%;
+      top:36%;
+      width:26%;
+      height:26%;
+      background:linear-gradient(180deg,var(--wing),#ffa300);
+      border-radius:40% 30% 20% 60%;
+      transform:rotate(-18deg);
+    }
+    /* Shadow */
+    .shadow{
+      position:absolute;
+      bottom:20px;
+      left:12%;
+      width:160px;
+      height:18px;
+      background:radial-gradient(ellipse at center, rgba(0,0,0,0.32), rgba(0,0,0,0.06));
+      filter:blur(6px);
+      transform-origin:center;
+      animation:shadowStretch 6s linear infinite;
+    }
+    @keyframes shadowStretch{
+      0%{transform:scaleX(0.6)}
+      50%{transform:scaleX(1)}
+      100%{transform:scaleX(0.6)}
+    }
+    /* small text */
+    .label{
+      position:absolute;
+      right:18px;
+      bottom:12px;
+      font-size:13px;
+      color:rgba(255,255,255,0.85);
+      opacity:0.9;
+    }
+    /* responsive */
+    @media (max-width:480px){
+      .scene{height:260px;padding:12px}
+      .duck-wrap{width:140px;height:92px}
+    }
+  </style>
+</head>
+<body>
+  <div class="scene" role="img" aria-label="Pato voando — animação">
+    <div class="cloud" aria-hidden="true"></div>
+
+    <div class="duck-wrap" id="duckWrap">
+      <div class="duck" id="duck">
+        <div class="tail"></div>
+        <div class="body"></div>
+        <div class="head">
+          <div class="eye"></div>
+          <div class="beak"></div>
+        </div>
+        <div class="wing" id="wing"></div>
+      </div>
+      <div class="shadow" aria-hidden="true"></div>
+    </div>
+
+    <div class="label">Pato offline</div>
+  </div>
+
+  <script>
+    // small subtle bobbing + speed variation to feel natural
+    (function(){
+      const wrap = document.getElementById('duckWrap');
+      const wing = document.getElementById('wing');
+      let base = 1;
+      function randomize(){
+        const dur = 5.2 + Math.random()*2.8; // 5.2s to 8s
+        wrap.style.animationDuration = dur + 's';
+        wing.style.animationDuration = (0.22 + Math.random()*0.18) + 's';
+        setTimeout(randomize, (3000 + Math.random()*5000)|0);
+      }
+      randomize();
+
+      // reduce motion preference
+      const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+      if (mq.matches) {
+        wrap.style.animation = 'none';
+        wing.style.animation = 'none';
+        document.querySelector('.cloud').style.animation = 'none';
+      }
+    })();
+  </script>
+</body>
+</html>
