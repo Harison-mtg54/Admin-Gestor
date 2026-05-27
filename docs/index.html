@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Pato Offline — Animação</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="stage">
+    <!-- Inline SVG for animation -->
+    <svg id="duck" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg" aria-label="Pato voando">
+      <defs>
+        <clipPath id="wingClip">
+          <ellipse cx="80" cy="50" rx="40" ry="20"/>
+        </clipPath>
+      </defs>
+      <!-- Body -->
+      <g transform="translate(30,20)">
+        <ellipse cx="70" cy="50" rx="50" ry="30" fill="#FFD24D"/>
+        <!-- Head -->
+        <circle cx="115" cy="30" r="18" fill="#FFD24D"/>
+        <!-- Beak -->
+        <path d="M132 34 L150 28 L132 22 Z" fill="#FF9A3C"/>
+        <!-- Eye -->
+        <circle cx="120" cy="26" r="3" fill="#222"/>
+        <!-- Wing -->
+        <g id="wing" transform="translate(40,30)">
+          <ellipse cx="0" cy="0" rx="44" ry="20" fill="#FFEB99" clip-path="url(#wingClip)"/>
+        </g>
+        <!-- Tail -->
+        <path d="M20 60 L8 50 L20 46 Z" fill="#FFB84D"/>
+      </g>
+    </svg>
+  </main>
+
+  <script>
+    // Simple flight animation: bob + wing flap + horizontal loop
+    const duck = document.getElementById('duck');
+    const wing = document.getElementById('wing');
+    let start = null;
+    const duration = 4000; // ms per loop
+    function animate(ts) {
+      if (!start) start = ts;
+      const t = (ts - start) % duration;
+      const progress = t / duration;
+      // horizontal drift across stage (wrap)
+      const drift = (progress * 120) - 10; // -10 -> 110 px translate
+      duck.style.transform = `translateX(${drift}px) translateY(${Math.sin(progress * Math.PI * 2) * -8}px)`;
+      // wing flap: rotate between -20deg and 30deg
+      const flap = Math.sin(progress * Math.PI * 4) * 25; // faster flap
+      wing.setAttribute('transform', `translate(40,30) rotate(${flap})`);
+      requestAnimationFrame(animate);
+    }
+    requestAnimationFrame(animate);
+  </script>
+</body>
+</html>
