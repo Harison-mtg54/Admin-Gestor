@@ -1,0 +1,23 @@
+:root{
+  --bg:#0f1724;
+}
+html,body{
+  height:100%;
+  margin:0;
+  font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+  background: linear-gradient(180deg,var(--bg) 0%, #06202a 100%);
+  color:#fff;
+}
+.stage{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  height:100vh;
+  overflow:hidden;
+}
+svg#duck{
+  width:380px;
+  height:auto;
+  will-change:transform;
+  filter:drop-shadow(0 8px 14px rgba(0,0,0,0.5));
+}
