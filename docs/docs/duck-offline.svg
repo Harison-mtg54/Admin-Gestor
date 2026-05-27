@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg" aria-label="Pato offline">
+  <ellipse cx="100" cy="70" rx="70" ry="40" fill="#0f1724"/>
+  <g transform="translate(30,20)">
+    <ellipse cx="70" cy="50" rx="50" ry="30" fill="#FFD24D"/>
+    <circle cx="115" cy="30" r="18" fill="#FFD24D"/>
+    <path d="M132 34 L150 28 L132 22 Z" fill="#FF9A3C"/>
+    <circle cx="120" cy="26" r="3" fill="#222"/>
+    <ellipse cx="40" cy="30" rx="44" ry="20" fill="#FFEB99"/>
+    <path d="M20 60 L8 50 L20 46 Z" fill="#FFB84D"/>
+  </g>
+</svg>
